@@ -1,9 +1,5 @@
-import 'package:fitnessapp/views/authentication/registration.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-import 'package:fitnessapp/views/authentication/login.dart';
-import 'package:fitnessapp/views/workout.dart';
+import 'package:fitnessapp/controller/router.dart';
 
 void main() {
   runApp(const FitnessWorkout());
@@ -21,7 +17,7 @@ class FitnessWorkout extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      routerConfig: _router,
+      routerConfig: AppRouter().router,
     );
   }
 }
@@ -70,45 +66,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-final GoRouter _router = GoRouter(
-  initialLocation: "/login",
-  routes: <RouteBase>[
-    GoRoute(
-      name: "/login",
-      path: "/login",
-      builder: (context, state) {
-        return const LoginPage(
-          title: '',
-        );
-      },
-    ),
-    GoRoute(
-      name: "/register",
-      path: "/register",
-      builder: (context, state) {
-        return const RegistrationPage(
-          title: '',
-        );
-      },
-    ),
-    GoRoute(
-      name: "/home",
-      path: "/home",
-      builder: (context, state) {
-        return const MyHomePage(
-          title: 'My Fitness Workout App',
-        );
-      },
-    ),
-    GoRoute(
-      name: "/workouts",
-      path: "/workouts",
-      builder: (context, state) {
-        return const WorkoutPage(
-          title: 'Workouts',
-        );
-      },
-    )
-  ],
-);

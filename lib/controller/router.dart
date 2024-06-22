@@ -2,10 +2,9 @@ import 'package:go_router/go_router.dart';
 import 'package:fitnessapp/utilities/route_constants.dart';
 import 'package:fitnessapp/views/authentication/login.dart';
 import 'package:fitnessapp/views/authentication/registration.dart';
-import 'package:fitnessapp/views/workout.dart';
+import 'package:fitnessapp/views/workouts/workout.dart';
 import 'package:fitnessapp/main.dart';
 import 'package:fitnessapp/views/progresstracker.dart';
-
 
 class AppRouter {
   final GoRouter router = GoRouter(
@@ -47,7 +46,7 @@ class AppRouter {
             );
           },
         ),
-         GoRoute(
+        GoRoute(
           name: RouteConstants.progresstracker,
           path: "/progresstracker",
           builder: (context, state) {

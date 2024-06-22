@@ -9,6 +9,7 @@ class Fitnessworkout {
   String workoutName;
   String workoutDescription;
   Icon workoutIcon;
+  Image workoutImage;
   WorkoutCategory workoutCategory;
 
   Fitnessworkout({
@@ -16,6 +17,7 @@ class Fitnessworkout {
     required this.workoutName,
     required this.workoutDescription,
     required this.workoutIcon,
+    required this.workoutImage,
     required this.workoutCategory,
   });
 }
@@ -25,32 +27,56 @@ Widget generateWorkOutsList() {
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Squats",
-        workoutDescription: "Squatting",
+        workoutDescription:
+            "A squat is a strength exercise in which the trainee lowers their hips from a standing position and then stands back up.",
         workoutIcon: Icon(Icons.king_bed),
+        workoutImage: Image.asset(
+          'assets/man-doing-gym-front-squat-royalty-free-image-1649261343.jpg',
+          width: 100,
+          height: 50,
+        ),
         workoutCategory: WorkoutCategory.strengthening),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Pushups",
-        workoutDescription: "Pushing Up",
+        workoutDescription:
+            "Push-ups are a full-body exercise that can be done almost anywhere and work your chest, shoulders, arms, core muscles, and coordination.",
         workoutIcon: Icon(Icons.access_alarm),
+        workoutImage: Image.asset(
+          'assets/health-benefits-of-pushups-GettyImages-498315681-7008d40842444270868c88b516496884.jpg',
+          width: 100,
+          height: 50,
+        ),
         workoutCategory: WorkoutCategory.lowimpact),
     Fitnessworkout(
         workoutId: const Uuid(),
-        workoutName: "Bird Dog",
-        workoutDescription: "Bird Doggy",
+        workoutName: "HIIT",
+        workoutDescription:
+            "High-intensity interval training (HIIT) is a type of exercise that alternates between short periods of intense anaerobic exercise and brief recovery periods.",
         workoutIcon: Icon(Icons.air),
-        workoutCategory: WorkoutCategory.meditation),
+        workoutImage: Image.asset(
+          'assets/HIGH-INTENSITY-INTERVAL-TRAINING-HIIT-300x169.png',
+          width: 100,
+          height: 50,
+        ),
+        workoutCategory: WorkoutCategory.hiit),
   ];
 
   return ListView.separated(
       itemBuilder: (BuildContext context, int index) {
-        return Container(
-          height: 50,
-          color: Colors.amber,
-          child: Center(
-            child: Text('Entry ${entries[index].workoutName}'),
-          ),
-        );
+        return Card(
+            elevation: 3,
+            child: ListTile(
+              title: Text(
+                entries[index].workoutName,
+                style: TextStyle(color: Colors.white),
+              ),
+              tileColor: Colors.black,
+              onTap: () {},
+              trailing: entries[index].workoutImage,
+              contentPadding: EdgeInsets.all(20),
+              dense: false,
+            ));
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),
       itemCount: entries.length);

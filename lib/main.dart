@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
             title: const Text('Menu Item 1'),
             onTap: () {},
           ),
-           ListTile(
+          ListTile(
             title: const Text('Menu Item 2'),
             onTap: () {},
           ),

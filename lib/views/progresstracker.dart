@@ -12,7 +12,11 @@ class ProgressTrackerPage extends StatefulWidget {
 class _ProgressTrackerPageState extends State<ProgressTrackerPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
       body: Center(),
     );
   }

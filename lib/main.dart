@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:fitnessapp/views/authentication/login.dart';
+import 'package:fitnessapp/views/workout.dart';
 
 void main() {
   runApp(const FitnessWorkout());
@@ -68,6 +70,15 @@ final GoRouter _router = GoRouter(
       builder: (context, state) {
         return const MyHomePage(
           title: 'My Fitness Workout App',
+        );
+      },
+    ),
+    GoRoute(
+      name: "/workouts",
+      path: "/workouts",
+      builder: (context, state) {
+        return const WorkoutPage(
+          title: 'Workouts',
         );
       },
     )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modular_ui/modular_ui.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,7 +18,9 @@ class _LoginPageState extends State<LoginPage> {
           child: MUISignInCard(
         emailController: TextEditingController(),
         passwordController: TextEditingController(),
-        onSignInPressed: () async {},
+        onSignInPressed: () async {
+          context.goNamed("/home");
+        },
         onRegisterNow: () {},
       )),
     );

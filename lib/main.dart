@@ -42,6 +42,24 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
+      drawer: Drawer(
+          child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(color: Colors.blue),
+            child: Text("Settings"),
+          ),
+          ListTile(
+            title: const Text('Menu Item 1'),
+            onTap: () {},
+          ),
+          ListTile(
+            title: const Text('Menu Item 2'),
+            onTap: () {},
+          ),
+        ],
+      )),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

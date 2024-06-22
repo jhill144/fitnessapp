@@ -1,5 +1,7 @@
+import 'package:fitnessapp/utilities/route_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fitnessapp/controller/router.dart';
+import 'package:go_router/go_router.dart';
 
 void main() {
   runApp(const FitnessWorkout());
@@ -51,13 +53,19 @@ class _MyHomePageState extends State<MyHomePage> {
             title: const Text('Menu Item 1'),
             onTap: () {},
           ),
-          ListTile(
+           ListTile(
             title: const Text('Menu Item 2'),
             onTap: () {},
           ),
+          ListTile(
+            title: const Text('Progress Tracker'),
+            onTap: () {
+              context.pushNamed(RouteConstants.progresstracker);
+            },
+          ),
         ],
       )),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[],

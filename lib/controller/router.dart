@@ -4,6 +4,8 @@ import 'package:fitnessapp/views/authentication/login.dart';
 import 'package:fitnessapp/views/authentication/registration.dart';
 import 'package:fitnessapp/views/workout.dart';
 import 'package:fitnessapp/main.dart';
+import 'package:fitnessapp/views/progresstracker.dart';
+
 
 class AppRouter {
   final GoRouter router = GoRouter(
@@ -44,7 +46,16 @@ class AppRouter {
               title: 'Workouts',
             );
           },
-        )
+        ),
+         GoRoute(
+          name: RouteConstants.progresstracker,
+          path: "/progresstracker",
+          builder: (context, state) {
+            return const ProgressTrackerPage(
+              title: 'Progress Tracker Page',
+            );
+          },
+        ),
       ],
       redirect: (context, state) async {
         bool isAuthenticated = false;

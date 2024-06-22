@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:fitnessapp/views/authentication/login.dart';
 
 void main() {
   runApp(const FitnessWorkout());
@@ -10,13 +12,13 @@ class FitnessWorkout extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Fitness Workout',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Fitness Workout'),
+      routerConfig: _router,
     );
   }
 }
@@ -47,3 +49,27 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+final GoRouter _router = GoRouter(
+  initialLocation: "/login",
+  routes: <RouteBase>[
+    GoRoute(
+      name: "/login",
+      path: "/login",
+      builder: (context, state) {
+        return const LoginPage(
+          title: '',
+        );
+      },
+    ),
+    GoRoute(
+      name: "/home",
+      path: "/home",
+      builder: (context, state) {
+        return const MyHomePage(
+          title: 'My Fitness Workout App',
+        );
+      },
+    )
+  ],
+);

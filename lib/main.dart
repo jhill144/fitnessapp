@@ -1,3 +1,4 @@
+import 'package:fitnessapp/views/authentication/registration.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -78,6 +79,15 @@ final GoRouter _router = GoRouter(
       path: "/login",
       builder: (context, state) {
         return const LoginPage(
+          title: '',
+        );
+      },
+    ),
+    GoRoute(
+      name: "/register",
+      path: "/register",
+      builder: (context, state) {
+        return const RegistrationPage(
           title: '',
         );
       },

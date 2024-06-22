@@ -21,7 +21,9 @@ class _LoginPageState extends State<LoginPage> {
         onSignInPressed: () async {
           context.goNamed("/home");
         },
-        onRegisterNow: () {},
+        onRegisterNow: () async {
+          context.pushNamed("/register");
+        },
       )),
     );
   }

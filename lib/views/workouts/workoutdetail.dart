@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fitnessapp/views/navigation_menu.dart';
+import 'package:fitnessapp/models/fitnessworkout.dart';
 
 class WorkoutDetailPage extends StatefulWidget {
-  const WorkoutDetailPage({super.key, required this.title});
+  const WorkoutDetailPage({super.key, required this.fitnessworkout});
 
-  final String title;
+  final Fitnessworkout fitnessworkout;
   @override
   State<WorkoutDetailPage> createState() => _WorkoutDetailPageState();
 }
@@ -15,13 +15,17 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text(widget.fitnessworkout.workoutName),
       ),
-      body: const Center(
-        child: Text(''),
-      ),
-      bottomNavigationBar: const NavigationBanner(
-        title: 'navigation',
+      body: Center(
+        child: Column(
+          children: [
+            Text('Description: ${widget.fitnessworkout.workoutDescription}'),
+            widget.fitnessworkout.workoutImage,
+            Text('Instructor: '),
+            Text('Schedule: '),
+          ],
+        ),
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'package:fitnessapp/utilities/route_constants.dart';
+import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:fitnessapp/utilities/enums.dart';
@@ -10,6 +12,7 @@ class Fitnessworkout {
   String workoutDescription;
   Icon workoutIcon;
   Image workoutImage;
+  Image workoutThumbnail;
   WorkoutCategory workoutCategory;
 
   Fitnessworkout({
@@ -18,6 +21,7 @@ class Fitnessworkout {
     required this.workoutDescription,
     required this.workoutIcon,
     required this.workoutImage,
+    required this.workoutThumbnail,
     required this.workoutCategory,
   });
 }
@@ -32,6 +36,11 @@ Widget generateWorkOutsList() {
         workoutIcon: Icon(Icons.king_bed),
         workoutImage: Image.asset(
           'assets/man-doing-gym-front-squat-royalty-free-image-1649261343.jpg',
+          width: 200,
+          height: 100,
+        ),
+        workoutThumbnail: Image.asset(
+          'assets/man-doing-gym-front-squat-royalty-free-image-1649261343.jpg',
           width: 100,
           height: 50,
         ),
@@ -44,6 +53,11 @@ Widget generateWorkOutsList() {
         workoutIcon: Icon(Icons.access_alarm),
         workoutImage: Image.asset(
           'assets/health-benefits-of-pushups-GettyImages-498315681-7008d40842444270868c88b516496884.jpg',
+          width: 200,
+          height: 100,
+        ),
+        workoutThumbnail: Image.asset(
+          'assets/health-benefits-of-pushups-GettyImages-498315681-7008d40842444270868c88b516496884.jpg',
           width: 100,
           height: 50,
         ),
@@ -55,6 +69,11 @@ Widget generateWorkOutsList() {
             "High-intensity interval training (HIIT) is a type of exercise that alternates between short periods of intense anaerobic exercise and brief recovery periods.",
         workoutIcon: Icon(Icons.air),
         workoutImage: Image.asset(
+          'assets/HIGH-INTENSITY-INTERVAL-TRAINING-HIIT-300x169.png',
+          width: 200,
+          height: 100,
+        ),
+        workoutThumbnail: Image.asset(
           'assets/HIGH-INTENSITY-INTERVAL-TRAINING-HIIT-300x169.png',
           width: 100,
           height: 50,
@@ -72,8 +91,11 @@ Widget generateWorkOutsList() {
                 style: TextStyle(color: Colors.white),
               ),
               tileColor: Colors.black,
-              onTap: () {},
-              trailing: entries[index].workoutImage,
+              onTap: () {
+                context.pushNamed(RouteConstants.workoutdetails,
+                    extra: entries[index]);
+              },
+              trailing: entries[index].workoutThumbnail,
               contentPadding: EdgeInsets.all(20),
               dense: false,
             ));

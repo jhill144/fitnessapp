@@ -3,6 +3,8 @@ import 'package:fitnessapp/utilities/route_constants.dart';
 import 'package:fitnessapp/views/authentication/login.dart';
 import 'package:fitnessapp/views/authentication/registration.dart';
 import 'package:fitnessapp/views/workouts/workout.dart';
+import 'package:fitnessapp/views/workouts/workoutdetail.dart';
+import 'package:fitnessapp/models/fitnessworkout.dart';
 import 'package:fitnessapp/main.dart';
 import 'package:fitnessapp/views/progresstracker.dart';
 
@@ -43,6 +45,16 @@ class AppRouter {
           builder: (context, state) {
             return const WorkoutPage(
               title: 'Workouts',
+            );
+          },
+        ),
+        GoRoute(
+          name: RouteConstants.workoutdetails,
+          path: "/workoutdetails",
+          builder: (context, state) {
+            final Fitnessworkout workout = state.extra as Fitnessworkout;
+            return WorkoutDetailPage(
+              fitnessworkout: workout,
             );
           },
         ),

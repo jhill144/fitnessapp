@@ -20,7 +20,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         passwordController: TextEditingController(),
         confirmPasswordController: TextEditingController(),
         onSignUpPressed: () async {
-          context.goNamed("/home");
+          context.goNamed("/questionnaire");
         },
         onLogInNowPressed: () async {
           context.pushNamed("/login");

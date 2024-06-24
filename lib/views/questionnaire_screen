@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fitnessapp/utilities/route_constants.dart';
+import 'package:go_router/go_router.dart';
+
 
 class UserInfo {
   final int age;
@@ -171,7 +174,8 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop();
+             // Navigator.of(context).pop();
+              context.goNamed("/home");
             },
             child: Text('OK'),
           ),

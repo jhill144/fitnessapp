@@ -17,6 +17,7 @@ class FitnessWorkout extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Fitness Workout',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -66,11 +67,10 @@ class _MyHomePageState extends State<MyHomePage> {
             },
           ),
           ListTile(
-            title: const Text('Questionnaire'),
-            onTap: () {
-              context.pushNamed(RouteConstants.questionnaire);
-            }
-          ),
+              title: const Text('Questionnaire'),
+              onTap: () {
+                context.pushNamed(RouteConstants.questionnaire);
+              }),
         ],
       )),
       bottomNavigationBar: const NavigationBanner(

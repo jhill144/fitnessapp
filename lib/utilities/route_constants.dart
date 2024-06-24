@@ -7,4 +7,5 @@ class RouteConstants {
   static String login = '/login';
   static String home = '/home';
   static String progresstracker = '/progresstracker';
+  static String questionnaire = '/questionnaire';
 }

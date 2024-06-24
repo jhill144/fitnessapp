@@ -1,3 +1,4 @@
+import 'package:fitnessapp/views/questionnaire_screen';
 import 'package:go_router/go_router.dart';
 import 'package:fitnessapp/utilities/route_constants.dart';
 import 'package:fitnessapp/views/authentication/login.dart';
@@ -65,6 +66,13 @@ class AppRouter {
             return const ProgressTrackerPage(
               title: 'Progress Tracker Page',
             );
+          },
+        ),
+        GoRoute(
+          name: RouteConstants.questionnaire,
+          path: "/questionnaire",
+          builder: (context, state) {
+            return QuestionnaireScreen();
           },
         ),
       ],

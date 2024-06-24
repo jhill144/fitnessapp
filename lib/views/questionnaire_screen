@@ -1,0 +1,182 @@
+import 'package:flutter/material.dart';
+
+class UserInfo {
+  final int age;
+  final double weight; // in pounds
+  final double height; // in inches
+  final String goal;
+
+  UserInfo({
+    required this.age,
+    required this.weight,
+    required this.height,
+    required this.goal,
+  });
+}
+
+class CalorieCalculator {
+  double calculateBMR(UserInfo userInfo) {
+    return 10 * (userInfo.weight / 2.205) + 6.25 * (userInfo.height * 2.54) - 5 * userInfo.age + 5;
+  }
+
+  double calculateTDEE(double bmr, String activityLevel) {
+    return bmr * 1.2; // Example for sedentary activity level
+  }
+
+  double calculateCaloriesToBurn(UserInfo userInfo, double tdee) {
+    if (userInfo.goal == 'Lose Weight') {
+      return tdee - 500;
+    } else if (userInfo.goal == 'Gain Muscle') {
+      return tdee + 500;
+    } else {
+      return tdee;
+    }
+  }
+}
+
+class QuestionnaireScreen extends StatefulWidget {
+  @override
+  _QuestionnaireScreenState createState() => _QuestionnaireScreenState();
+}
+
+class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _ageController = TextEditingController();
+  final TextEditingController _weightController = TextEditingController();
+  final TextEditingController _heightFeetController = TextEditingController();
+  final TextEditingController _heightInchesController = TextEditingController();
+  String _goal = 'Lose Weight';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Fitness Questionnaire'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _ageController,
+                decoration: InputDecoration(labelText: 'Age'),
+                keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your age';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _weightController,
+                decoration: InputDecoration(labelText: 'Weight (lb)'),
+                keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your weight';
+                  }
+                  return null;
+                },
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: _heightFeetController,
+                      decoration: InputDecoration(labelText: 'Height (ft)'),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter feet';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: TextFormField(
+                      controller: _heightInchesController,
+                      decoration: InputDecoration(labelText: 'Height (in)'),
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter inches';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              DropdownButtonFormField<String>(
+                value: _goal,
+                items: ['Lose Weight', 'Gain Muscle', 'Maintain Weight']
+                    .map((label) => DropdownMenuItem(
+                          child: Text(label),
+                          value: label,
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _goal = value!;
+                  });
+                },
+                decoration: InputDecoration(labelText: 'Goal'),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    calculateCalories();
+                  }
+                },
+                child: Text('Submit'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void calculateCalories() {
+    int age = int.parse(_ageController.text);
+    double weight = double.parse(_weightController.text);
+    double heightFeet = double.parse(_heightFeetController.text);
+    double heightInches = double.parse(_heightInchesController.text);
+    double height = (heightFeet * 12) + heightInches;
+
+    UserInfo userInfo = UserInfo(
+      age: age,
+      weight: weight,
+      height: height,
+      goal: _goal,
+    );
+
+    CalorieCalculator calculator = CalorieCalculator();
+    double bmr = calculator.calculateBMR(userInfo);
+    double tdee = calculator.calculateTDEE(bmr, 'Sedentary');
+    double caloriesToBurn = calculator.calculateCaloriesToBurn(userInfo, tdee);
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Caloric Needs'),
+        content: Text(
+            'You need to burn ${caloriesToBurn.toStringAsFixed(0)} calories per day to achieve your goal.'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+}

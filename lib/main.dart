@@ -65,6 +65,12 @@ class _MyHomePageState extends State<MyHomePage> {
               context.pushNamed(RouteConstants.progresstracker);
             },
           ),
+          ListTile(
+            title: const Text('Questionnaire'),
+            onTap: () {
+              context.pushNamed(RouteConstants.questionnaire);
+            }
+          ),
         ],
       )),
       bottomNavigationBar: const NavigationBanner(

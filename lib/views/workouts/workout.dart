@@ -24,6 +24,7 @@ class _WorkoutPageState extends State<WorkoutPage> {
       body: Center(
         child: generateWorkOutsList(),
       ),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       bottomNavigationBar: const NavigationBanner(
         title: 'navigation',
       ),

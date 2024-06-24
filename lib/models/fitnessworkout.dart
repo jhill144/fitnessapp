@@ -79,6 +79,23 @@ Widget generateWorkOutsList() {
           height: 50,
         ),
         workoutCategory: WorkoutCategory.hiit),
+    Fitnessworkout(
+        workoutId: const Uuid(),
+        workoutName: "Bench Press",
+        workoutDescription:
+            "Bench presses can be an effective exercise for building up chest, arm, and shoulder muscles. They work several different muscles in your upper body, including the chest, shoulders, and arms.",
+        workoutIcon: Icon(Icons.air),
+        workoutImage: Image.asset(
+          'assets/AF-HERO_BenchPress-1024x683.jpg',
+          width: 200,
+          height: 100,
+        ),
+        workoutThumbnail: Image.asset(
+          'assets/AF-HERO_BenchPress-1024x683.jpg',
+          width: 100,
+          height: 50,
+        ),
+        workoutCategory: WorkoutCategory.core),
   ];
 
   return ListView.separated(
@@ -88,9 +105,11 @@ Widget generateWorkOutsList() {
             child: ListTile(
               title: Text(
                 entries[index].workoutName,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(
+                    color: Color.fromARGB(255, 148, 154, 155),
+                    fontWeight: FontWeight.bold),
               ),
-              tileColor: Colors.black,
+              tileColor: Color.fromARGB(255, 198, 211, 243),
               onTap: () {
                 context.pushNamed(RouteConstants.workoutdetails,
                     extra: entries[index]);

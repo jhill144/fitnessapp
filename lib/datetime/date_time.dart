@@ -39,6 +39,6 @@ String convertDateTimeToYYYYMMDD(DateTime dateTime) {
     day = '0$day';
   }
 
-  String yyyymmdd = year + month + day;
+  String yyyymmdd = '$year/$month/$day';
   return yyyymmdd;
 }

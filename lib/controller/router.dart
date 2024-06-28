@@ -1,3 +1,4 @@
+import 'package:fitnessapp/views/calendar_view.dart';
 import 'package:fitnessapp/views/questionnaire_screen';
 import 'package:go_router/go_router.dart';
 import 'package:fitnessapp/utilities/route_constants.dart';
@@ -7,7 +8,6 @@ import 'package:fitnessapp/views/workouts/workout.dart';
 import 'package:fitnessapp/views/workouts/workoutdetail.dart';
 import 'package:fitnessapp/models/fitnessworkout.dart';
 import 'package:fitnessapp/main.dart';
-import 'package:fitnessapp/views/progresstracker.dart';
 
 class AppRouter {
   final GoRouter router = GoRouter(
@@ -61,9 +61,9 @@ class AppRouter {
         ),
         GoRoute(
           name: RouteConstants.progresstracker,
-          path: "/progresstracker",
+          path: "/calendar_view",
           builder: (context, state) {
-            return const ProgressTrackerPage(
+            return const CalendarView(
               title: 'Progress Tracker Page',
             );
           },

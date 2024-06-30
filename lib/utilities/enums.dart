@@ -7,5 +7,5 @@ enum WorkoutCategory {
   core,
   flexibility,
   lowimpact,
-  hiit,
+  hiit, chest, shoulders, back, arms, legs,
 }

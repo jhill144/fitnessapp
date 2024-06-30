@@ -26,8 +26,8 @@ class Fitnessworkout {
   });
 }
 
-Widget generateWorkOutsList() {
-  final List<Fitnessworkout> entries = <Fitnessworkout>[
+List<Fitnessworkout> getWorkouts() {
+  return [
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Squats",
@@ -44,7 +44,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.strengthening),
+        workoutCategory: WorkoutCategory.legs,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Pushups",
@@ -61,7 +62,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.lowimpact),
+        workoutCategory: WorkoutCategory.chest,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "HIIT",
@@ -78,7 +80,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.hiit),
+        workoutCategory: WorkoutCategory.cardio,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Bench Press",
@@ -95,7 +98,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.chest,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Incline Dumbell Press",
@@ -112,7 +116,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.chest,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Pectoral Fly",
@@ -129,7 +134,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.chest,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Decline Machine Press",
@@ -146,7 +152,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.chest,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Dips",
@@ -163,7 +170,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.chest,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Leg Press",
@@ -180,7 +188,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.legs,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Deadlift",
@@ -197,7 +206,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.legs,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Hamstring Curls Machine",
@@ -214,7 +224,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.legs,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Leg Extension Machine",
@@ -231,7 +242,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.legs,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Goblin Squats",
@@ -248,7 +260,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.legs,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Lat Pulldowns",
@@ -265,7 +278,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.back,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Barbell Rows",
@@ -282,11 +296,13 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.back,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Pushups",
-        workoutDescription: "",
+        workoutDescription:
+            "",
         workoutIcon: const Icon(Icons.air),
         workoutImage: Image.asset(
           'assets/Pushups.jpg',
@@ -298,7 +314,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.back,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Iso Cable Lat Pulldowns",
@@ -315,7 +332,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.back,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "T-Bar Rows",
@@ -332,7 +350,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.back,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Pull-Ups",
@@ -349,7 +368,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.back,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Dumbbell Should Press",
@@ -366,7 +386,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.shoulders,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Military Press",
@@ -383,7 +404,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.shoulders,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Lat Raises",
@@ -400,7 +422,9 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.shoulders,
+    ),
+
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Shrugs",
@@ -417,7 +441,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.shoulders,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Rear Delt Fly",
@@ -434,7 +459,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.shoulders,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Bicep Curls",
@@ -451,7 +477,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.arms,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Hammer Curls",
@@ -468,7 +495,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.arms,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Preacher Curls",
@@ -485,7 +513,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.arms,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Tricep Rope Pulldowns",
@@ -502,7 +531,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.arms,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Skull-Crushers",
@@ -519,7 +549,8 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.arms,
+    ),
     Fitnessworkout(
         workoutId: const Uuid(),
         workoutName: "Close Grip Bench Press",
@@ -536,8 +567,11 @@ Widget generateWorkOutsList() {
           width: 100,
           height: 50,
         ),
-        workoutCategory: WorkoutCategory.core),
+        workoutCategory: WorkoutCategory.arms,
+    ),
   ];
+Widget generateWorkOutsList() {
+  final List<Fitnessworkout> entries = getWorkouts();
 
   return ListView.separated(
       itemBuilder: (BuildContext context, int index) {
@@ -562,4 +596,5 @@ Widget generateWorkOutsList() {
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),
       itemCount: entries.length);
+}
 }

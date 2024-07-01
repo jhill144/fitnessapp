@@ -1,7 +1,6 @@
 import 'package:fitnessapp/utilities/route_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:modular_ui/modular_ui.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.title});

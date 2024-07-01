@@ -10,6 +10,24 @@ class ThemeProvider with ChangeNotifier {
     _loadTheme();
   }
 
+  ThemeData get lightTheme {
+    return ThemeData(
+      brightness: Brightness.light,
+      colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple, brightness: Brightness.light),
+      useMaterial3: true,
+    );
+  }
+
+  ThemeData get darkTheme {
+    return ThemeData(
+      brightness: Brightness.dark,
+      colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple, brightness: Brightness.dark),
+      useMaterial3: true,
+    );
+  }
+
   void _loadTheme() async {
     final prefs = await SharedPreferences.getInstance();
     _isDarkTheme = prefs.getBool('isDarkTheme') ?? false;

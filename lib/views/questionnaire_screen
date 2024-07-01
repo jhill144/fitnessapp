@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fitnessapp/utilities/route_constants.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserInfo {
   final int age;
@@ -175,7 +175,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
           TextButton(
             onPressed: () {
              // Navigator.of(context).pop();
-              context.goNamed("/home");
+              context.goNamed("/workouts");
             },
             child: Text('OK'),
           ),
@@ -184,3 +184,16 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
     );
   }
 }
+
+class UserSettings {
+  static Future<void> saveSetting(String key, String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(key, value);
+  }
+
+  static Future<String?> getSetting(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(key);
+  }
+}
+

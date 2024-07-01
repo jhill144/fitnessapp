@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fitnessapp/utilities/route_constants.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fitnessapp/utilities/database_helper.dart';
+
+final dbHelper = DatabaseHelper();
 
 class UserInfo {
   final int age;
@@ -49,6 +52,31 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
   final TextEditingController _heightFeetController = TextEditingController();
   final TextEditingController _heightInchesController = TextEditingController();
   String _goal = 'Lose Weight';
+  
+  @override
+  void initState() {
+    super.initState();
+    dbHelper.init();
+  }
+
+  void _insert(BuildContext context) async {
+// row to insert
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnName: 'Bob',
+      DatabaseHelper.columnAge: int.parse(_ageController.text),
+      DatabaseHelper.columnWeight: double.parse(_weightController.text),
+      DatabaseHelper.columnHeightFeet: double.parse(_heightFeetController.text),
+      DatabaseHelper.columnHeightInch: double.parse(_heightInchesController.text),
+      DatabaseHelper.columnGoal: _goal,
+    };
+    //await dbHelper.deleteDB();
+    final id = await dbHelper.insert(row);
+
+    calculateCalories();
+      
+    //debugPrint('inserted row id: $id');
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,8 +161,8 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    calculateCalories();
+                  if (_formKey.currentState!.validate()){
+                    _insert(context);
                   }
                 },
                 child: Text('Submit'),

@@ -1,13 +1,16 @@
-import 'package:fitnessapp/utilities/route_constants.dart';
+import 'package:fitnessapp/utilities/database_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:fitnessapp/controller/router.dart';
 import 'package:fitnessapp/views/navigation_menu.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:fitnessapp/providers/theme_provider.dart';
 
-void main() {
+final dbHelper = DatabaseHelper();
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+// initialize the database
+  await dbHelper.init();
+  //await dbHelper.deleteDB();
   runApp(const FitnessWorkout());
 }
 

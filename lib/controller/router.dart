@@ -33,15 +33,6 @@ class AppRouter {
           },
         ),
         GoRoute(
-          name: RouteConstants.home,
-          path: "/home",
-          builder: (context, state) {
-            return const MyHomePage(
-              title: 'My Fitness Workout App',
-            );
-          },
-        ),
-        GoRoute(
           name: RouteConstants.workout,
           path: "/workouts",
           builder: (context, state) {

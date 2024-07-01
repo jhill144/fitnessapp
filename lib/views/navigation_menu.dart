@@ -27,7 +27,7 @@ class _NavigationBannerState extends State<NavigationBanner> {
               context.push(RouteConstants.home);
           }
         },
-        tabs: [
+        tabs: const [
           GButton(icon: Icons.home),
           GButton(icon: Icons.hdr_strong),
           GButton(icon: Icons.person),

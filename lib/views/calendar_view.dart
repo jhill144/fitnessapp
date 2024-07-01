@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:fitnessapp/views/navigation_menu.dart';
 import 'package:fitnessapp/datetime/date_time.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 
 class CalendarView extends StatefulWidget {
-  const CalendarView({Key? key, required String title}) : super(key: key);
+  const CalendarView({super.key, required String title});
 
   @override
   _CalendarViewState createState() => _CalendarViewState();
 }
 
 class _CalendarViewState extends State<CalendarView> {
-  Map<DateTime, int> _heatmapData = {}; // This map will hold the progress data
+  final Map<DateTime, int> _heatmapData = {}; // This map will hold the progress data
   DateTime? _selectedDate;
 
   @override
@@ -76,13 +74,13 @@ class _CalendarViewState extends State<CalendarView> {
                           children: [
                             Text(
                               "Workouts on ${convertDateTimeToYYYYMMDD(_selectedDate!)}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             const SizedBox(height: 10),
-                            Text(
+                            const Text(
                               "Details of the workouts completed on this day.",
                               style: TextStyle(fontSize: 16),
                             ),
@@ -90,7 +88,7 @@ class _CalendarViewState extends State<CalendarView> {
                           ],
                         ),
                       )
-                    : Center(
+                    : const Center(
                         child: Text(
                           "Select a date to see completed workouts",
                           style: TextStyle(fontSize: 16),

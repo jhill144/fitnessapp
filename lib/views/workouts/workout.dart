@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:fitnessapp/utilities/route_constants.dart';
 
 class WorkoutPage extends StatefulWidget {
-  const WorkoutPage({Key? key, required this.title}) : super(key: key);
+  const WorkoutPage({super.key, required this.title});
 
   final String title;
 
@@ -68,7 +68,7 @@ class _WorkoutPageState extends State<WorkoutPage> with SingleTickerProviderStat
           child: ListTile(
             title: Text(
               workouts[index].workoutName,
-              style: TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.black),
             ),
             subtitle: Text(workouts[index].workoutDescription),
             leading: workouts[index].workoutThumbnail,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:fitnessapp/views/navigation_menu.dart';
 
 class ProgressTrackerPage extends StatefulWidget {
@@ -21,7 +20,7 @@ class _ProgressTrackerPageState extends State<ProgressTrackerPage> {
       bottomNavigationBar: const NavigationBanner(
         title: 'navigation',
       ),
-      body: Center(),
+      body: const Center(),
     );
   }
 }

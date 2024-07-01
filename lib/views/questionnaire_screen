@@ -170,7 +170,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
       builder: (context) => AlertDialog(
         title: Text('Caloric Needs'),
         content: Text(
-            'You need to burn ${caloriesToBurn.toStringAsFixed(0)} calories per day to achieve your goal.'),
+            'To meet your goal of [${_goal}], you need to maintain ${caloriesToBurn.toStringAsFixed(0)} calories per day.'),
         actions: [
           TextButton(
             onPressed: () {

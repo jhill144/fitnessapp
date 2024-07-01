@@ -1,4 +1,4 @@
-import '../models/user_info.dart';
+import 'package:fitnessapp/views/questionnaire_screen';
 
 class CalorieCalculator {
   double calculateBMR(UserInfo userInfo) {

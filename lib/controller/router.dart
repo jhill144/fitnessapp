@@ -1,5 +1,6 @@
 import 'package:fitnessapp/views/calendar_view.dart';
 import 'package:fitnessapp/views/questionnaire_screen';
+import 'package:fitnessapp/views/settings_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fitnessapp/utilities/route_constants.dart';
 import 'package:fitnessapp/views/authentication/login.dart';
@@ -73,6 +74,13 @@ class AppRouter {
           path: "/questionnaire",
           builder: (context, state) {
             return QuestionnaireScreen();
+          },
+        ),
+        GoRoute(
+          name: RouteConstants.settings,
+          path: "/settings",
+          builder: (context, state) {
+            return SettingsScreen();
           },
         ),
       ],

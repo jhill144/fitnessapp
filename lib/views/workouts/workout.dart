@@ -3,6 +3,7 @@ import 'package:fitnessapp/models/fitnessworkout.dart';
 import 'package:fitnessapp/utilities/enums.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fitnessapp/utilities/route_constants.dart';
+import 'package:fitnessapp/views/navigation_menu.dart';
 
 class WorkoutPage extends StatefulWidget {
   const WorkoutPage({Key? key, required this.title}) : super(key: key);
@@ -13,7 +14,8 @@ class WorkoutPage extends StatefulWidget {
   _WorkoutPageState createState() => _WorkoutPageState();
 }
 
-class _WorkoutPageState extends State<WorkoutPage> with SingleTickerProviderStateMixin {
+class _WorkoutPageState extends State<WorkoutPage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final List<Fitnessworkout> _workouts = getWorkouts();
 
@@ -24,7 +26,9 @@ class _WorkoutPageState extends State<WorkoutPage> with SingleTickerProviderStat
   }
 
   List<Fitnessworkout> _getWorkoutsByCategory(WorkoutCategory category) {
-    return _workouts.where((workout) => workout.workoutCategory == category).toList();
+    return _workouts
+        .where((workout) => workout.workoutCategory == category)
+        .toList();
   }
 
   @override
@@ -55,6 +59,9 @@ class _WorkoutPageState extends State<WorkoutPage> with SingleTickerProviderStat
           _buildWorkoutList(WorkoutCategory.cardio),
         ],
       ),
+      bottomNavigationBar: const NavigationMenu(
+        title: '',
+      ),
     );
   }
 
@@ -73,7 +80,8 @@ class _WorkoutPageState extends State<WorkoutPage> with SingleTickerProviderStat
             subtitle: Text(workouts[index].workoutDescription),
             leading: workouts[index].workoutThumbnail,
             onTap: () {
-              context.pushNamed(RouteConstants.workoutdetails, extra: workouts[index]);
+              context.pushNamed(RouteConstants.workoutdetails,
+                  extra: workouts[index]);
             },
           ),
         );

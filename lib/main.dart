@@ -4,6 +4,8 @@ import 'package:fitnessapp/controller/router.dart';
 import 'package:fitnessapp/views/navigation_menu.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:provider/provider.dart';
+import 'package:fitnessapp/providers/theme_provider.dart';
 
 void main() {
   runApp(const FitnessWorkout());
@@ -12,17 +14,23 @@ void main() {
 class FitnessWorkout extends StatelessWidget {
   const FitnessWorkout({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Fitness Workout',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
+          return MaterialApp.router(
+            title: 'Fitness Workout',
+            debugShowCheckedModeBanner: false,
+            theme: themeProvider.lightTheme,
+            darkTheme: themeProvider.darkTheme,
+            themeMode:
+                themeProvider.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
+            routerConfig: AppRouter().router,
+          );
+        },
       ),
-      routerConfig: AppRouter().router,
     );
   }
 }
@@ -47,33 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
       drawer: Drawer(
           child: ListView(
         padding: EdgeInsets.zero,
-        children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(color: Colors.blue),
-            child: Text("Settings"),
-          ),
-          ListTile(
-            title: const Text('Menu Item 1'),
-            onTap: () {},
-          ),
-          ListTile(
-            title: const Text('Menu Item 2'),
-            onTap: () {},
-          ),
-          ListTile(
-            title: const Text('Progress Tracker'),
-            onTap: () {
-              context.pushNamed(RouteConstants.progresstracker);
-            },
-          ),
-          ListTile(
-              title: const Text('Questionnaire'),
-              onTap: () {
-                context.pushNamed(RouteConstants.questionnaire);
-              }),
-        ],
       )),
-      bottomNavigationBar: const NavigationBanner(
+      bottomNavigationBar: const NavigationMenu(
         title: 'navigation',
       ),
       body: const Center(

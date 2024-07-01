@@ -25,7 +25,7 @@ class NavigationMenu extends StatelessWidget {
           label: 'Workouts',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.track_changes),
+          icon: Icon(Icons.calendar_today),
           label: 'Progress Tracker',
         ),
         BottomNavigationBarItem(

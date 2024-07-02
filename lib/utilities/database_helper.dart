@@ -9,7 +9,13 @@ class DatabaseHelper {
   static const _databaseName = "MyFitnessApp.db";
   static const _databaseVersion = 1;
   static const table = 'my_table';
+  static const workoutTable = 'my_workouts';
   static const columnId = '_id';
+  static const columnWorkoutID = 'workout_id';
+  static const columnWorkoutReps = 'workout_reps';
+  static const columnWorkoutSets = 'workout_sets';
+  static const columnWorkoutWeights = 'workout_weights';
+  static const columnWorkoutDuration = 'workout_duration';
   static const columnName = 'name';
   static const columnAge = 'age';
   static const columnWeight = 'weight';
@@ -49,7 +55,15 @@ $columnWeight INTEGER NOT NULL,
 $columnHeightFeet INTEGER NOT NULL,
 $columnHeightInch INTEGER NOT NULL,
 $columnGoal INTEGER NOT NULL
-)
+);
+      CREATE TABLE $workoutTable (
+      $columnId INTEGER PRIMARY KEY,
+      $columnWorkoutID INTEGER NOT NULL,
+      $columnWorkoutDuration INTEGER NOT NULL,
+      $columnWorkoutReps INTEGER NOT NULL,
+      $columnWorkoutSets INTEGER NOT NULL,
+      $columnWorkoutWeights INTEGER NOT NULL
+      );
       ''');
   }
 

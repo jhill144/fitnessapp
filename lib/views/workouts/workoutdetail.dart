@@ -22,8 +22,8 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
           children: [
             Text('Description: ${widget.fitnessworkout.workoutDescription}'),
             widget.fitnessworkout.workoutImage,
-            const Text('Instructor: '),
-            const Text('Schedule: '),
+            ElevatedButton(
+                onPressed: () {}, child: const Text('Add to Routine: ')),
           ],
         ),
       ),

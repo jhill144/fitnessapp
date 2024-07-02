@@ -43,24 +43,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (mapQuery.isNotEmpty) {
       final dbitem = mapQuery.first;
       setState(() {
-        _goal = prefs.getString('goal') ??
-            dbitem[DatabaseHelper.columnGoal]?.toString() ??
-            'Lose Weight';
+        _goal = (prefs.getString('goal').toString().isEmpty
+            ? dbitem[DatabaseHelper.columnGoal].toString()
+            : prefs.getString('goal'))!;
         if (!goals.contains(_goal)) {
           _goal = 'Lose Weight';
         }
-        ageController.text = prefs.getString('age') ??
-            dbitem[DatabaseHelper.columnAge]?.toString() ??
-            '';
-        weightController.text = prefs.getString('weight') ??
-            dbitem[DatabaseHelper.columnWeight]?.toString() ??
-            '';
-        heightFeetController.text = prefs.getString('height (in ft)') ??
-            dbitem[DatabaseHelper.columnHeightFeet]?.toString() ??
-            '';
-        heightInchesController.text = prefs.getString('height (in inches)') ??
-            dbitem[DatabaseHelper.columnHeightFeet]?.toString() ??
-            '';
+        ageController.text = prefs.getString('age').toString().isEmpty
+            ? dbitem[DatabaseHelper.columnAge].toString()
+            : prefs.getString('age')!;
+        weightController.text = (prefs.getString('weight').toString().isEmpty
+            ? dbitem[DatabaseHelper.columnWeight].toString()
+            : prefs.getString('weight'))!;
+        heightFeetController.text =
+            (prefs.getString('height (in ft)').toString().isEmpty
+                ? dbitem[DatabaseHelper.columnHeightFeet].toString()
+                : prefs.getString('height (in ft)').toString())!;
+        heightInchesController.text =
+            (prefs.getString('height (in inches)').toString().isEmpty
+                ? dbitem[DatabaseHelper.columnHeightFeet].toString()
+                : prefs.getString('height (in inches)').toString())!;
         isDarkTheme = prefs.getBool('isDarkTheme') ?? false;
       });
     } else {
@@ -96,6 +98,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
     // Show a snackbar to confirm settings are saved
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text('Settings saved')));
+  }
+
+  Future<void> deleteSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('goal', '');
+    await prefs.setString('age', '');
+    await prefs.setString('weight', '');
+    await prefs.setString('height (in ft)', '');
+    await prefs.setString('height (in inches)', '');
+    await prefs.setBool('isDarkTheme', false);
+
+    // Update the ThemeProvider
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    if (themeProvider.isDarkTheme != isDarkTheme) {
+      themeProvider.toggleTheme();
+    }
+
+    _delete();
+
+    // Show a snackbar to confirm settings are saved
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Account Data Deleted')));
   }
 
   void _update() async {
@@ -234,6 +258,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               saveSettings();
             },
             child: const Text('Save Settings'),
+          ),
+          const SizedBox(height: 20.0),
+
+          // Save Button
+          ElevatedButton(
+            onPressed: () {
+              deleteSettings();
+            },
+            child: const Text('Delete Account'),
           ),
         ],
       ),

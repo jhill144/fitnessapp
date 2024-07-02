@@ -33,9 +33,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     final mapQuery =
         await dbHelper.rawQuery('SELECT * FROM ${DatabaseHelper.table}');
-    print(mapQuery);
+    //print(mapQuery);
 
-    mapQuery.forEach((dbitem) {
+    for (var dbitem in mapQuery) {
       setState(() {
         goalController.text = (prefs.getString('goal')!.isEmpty
             ? dbitem[DatabaseHelper.columnGoal].toString()
@@ -51,7 +51,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             : prefs.getString('height')!;
         isDarkTheme = prefs.getBool('isDarkTheme') ?? false;
       });
-    });
+    }
   }
 
   Future<void> saveSettings() async {

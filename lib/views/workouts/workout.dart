@@ -4,6 +4,8 @@ import 'package:fitnessapp/utilities/enums.dart';
 import 'package:go_router/go_router.dart';
 import 'package:fitnessapp/utilities/route_constants.dart';
 import 'package:fitnessapp/views/navigation_menu.dart';
+import 'package:fitnessapp/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class WorkoutPage extends StatefulWidget {
   const WorkoutPage({super.key, required this.title});
@@ -66,6 +68,7 @@ class _WorkoutPageState extends State<WorkoutPage>
   }
 
   Widget _buildWorkoutList(WorkoutCategory category) {
+    var themeProvider = Provider.of<ThemeProvider>(context);
     final workouts = _getWorkoutsByCategory(category);
     return ListView.builder(
       itemCount: workouts.length,
@@ -75,7 +78,10 @@ class _WorkoutPageState extends State<WorkoutPage>
           child: ListTile(
             title: Text(
               workouts[index].workoutName,
-              style: const TextStyle(color: Colors.black),
+              style: TextStyle(
+                  color: themeProvider.isDarkTheme
+                      ? Colors.grey[300]
+                      : const Color.fromARGB(255, 0, 0, 0)),
             ),
             subtitle: Text(workouts[index].workoutDescription),
             leading: workouts[index].workoutThumbnail,

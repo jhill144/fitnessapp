@@ -82,6 +82,78 @@ List<Fitnessworkout> getWorkouts() {
     ),
     Fitnessworkout(
       workoutId: const Uuid(),
+      workoutName: "Cardio Kickboxing",
+      workoutDescription:
+          "Cardio kickboxing can be an effective workout for improving cardiovascular health, burning calories, and building overall body strength. It combines elements of martial arts and high-intensity cardio, targeting various muscle groups including the legs, core, and upper body, while also enhancing coordination and agility.",
+      workoutIcon: const Icon(Icons.air),
+      workoutImage: Image.asset(
+        'assets/cardiokickboxing.jpg',
+        width: 200,
+        height: 100,
+      ),
+      workoutThumbnail: Image.asset(
+        'assets/cardiokickboxing.jpg',
+        width: 100,
+        height: 50,
+      ),
+      workoutCategory: WorkoutCategory.cardio,
+    ),
+    Fitnessworkout(
+      workoutId: const Uuid(),
+      workoutName: "Running",
+      workoutDescription:
+          "Running can be an effective exercise for improving cardiovascular health, burning calories, and building endurance. It primarily targets the legs, including the quadriceps, hamstrings, calves, and glutes, while also engaging the core muscles and improving overall aerobic fitness.",
+      workoutIcon: const Icon(Icons.air),
+      workoutImage: Image.asset(
+        'assets/running.jpg',
+        width: 200,
+        height: 100,
+      ),
+      workoutThumbnail: Image.asset(
+        'assets/running.jpg',
+        width: 100,
+        height: 50,
+      ),
+      workoutCategory: WorkoutCategory.cardio,
+    ),
+    Fitnessworkout(
+      workoutId: const Uuid(),
+      workoutName: "Jump Roping",
+      workoutDescription:
+          "Jump rope can be an effective exercise for improving cardiovascular health, burning calories, and enhancing coordination. It primarily targets the legs, including the calves, quadriceps, and hamstrings, while also engaging the core, shoulders, and arms, providing a full-body workout.",
+      workoutIcon: const Icon(Icons.air),
+      workoutImage: Image.asset(
+        'assets/jump-roping.jpg',
+        width: 200,
+        height: 100,
+      ),
+      workoutThumbnail: Image.asset(
+        'assets/jump-roping.jpg',
+        width: 100,
+        height: 50,
+      ),
+      workoutCategory: WorkoutCategory.cardio,
+    ),
+    Fitnessworkout(
+      workoutId: const Uuid(),
+      workoutName: "Bicycling",
+      workoutDescription:
+          "Bicycling can be an effective exercise for improving cardiovascular health, burning calories, and building leg strength. It primarily targets the quadriceps, hamstrings, calves, and glutes, while also engaging the core muscles, providing a low-impact yet intense aerobic workout.",
+      workoutIcon: const Icon(Icons.air),
+      workoutImage: Image.asset(
+        'assets/biking.jpg',
+        width: 200,
+        height: 100,
+      ),
+      workoutThumbnail: Image.asset(
+        'assets/biking.jpg',
+        width: 100,
+        height: 50,
+      ),
+      workoutCategory: WorkoutCategory.cardio,
+    ),
+    Fitnessworkout(
+      workoutId: const Uuid(),
       workoutName: "Bench Press",
       workoutDescription:
           "Bench presses can be an effective exercise for building up chest, arm, and shoulder muscles. They work several different muscles in your upper body, including the chest, shoulders, and arms.",

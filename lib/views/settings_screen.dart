@@ -1,9 +1,14 @@
+import 'package:fitnessapp/utilities/route_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as Path;
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'package:fitnessapp/providers/theme_provider.dart';
 import 'package:fitnessapp/utilities/database_helper.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:go_router/go_router.dart';
+import 'dart:io' as Directory;
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -109,6 +114,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     final id = await dbHelper.update(DatabaseHelper.table, row,
         where: '${DatabaseHelper.columnId} = 1');
+
+    /*final deleteRecord = await dbHelper.delete(DatabaseHelper.table,
+        where: "${DatabaseHelper.columnId} = 1");*/
+  }
+
+  void _delete() async {
+    /*Directory.Directory documentsDirectory =
+        await getApplicationDocumentsDirectory();
+    String path = Path.join(documentsDirectory.path, 'MyFitnessApp.db');
+    databaseFactory.deleteDatabase(path);*/
+
+    Database dbHelper = await DatabaseHelper.instance.database;
+
+    final id = await dbHelper.delete(DatabaseHelper.table);
+
+    context.goNamed(RouteConstants.login);
   }
 
   @override

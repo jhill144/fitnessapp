@@ -12,6 +12,10 @@ class Fitnessworkout {
   Image workoutImage;
   Image workoutThumbnail;
   WorkoutCategory workoutCategory;
+  int workoutDuration;
+  int workoutWeights;
+  int workoutReps;
+  int workoutSets;
 
   Fitnessworkout({
     required this.workoutId,
@@ -21,6 +25,10 @@ class Fitnessworkout {
     required this.workoutImage,
     required this.workoutThumbnail,
     required this.workoutCategory,
+    this.workoutDuration = 0,
+    this.workoutWeights = 0,
+    this.workoutReps = 0,
+    this.workoutSets = 0,
   });
 }
 

@@ -16,6 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    DatabaseHelper.instance.database;
   }
 
   _queryRecords() async {

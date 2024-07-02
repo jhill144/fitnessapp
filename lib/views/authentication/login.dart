@@ -22,8 +22,8 @@ class _LoginPageState extends State<LoginPage> {
     Database dbHelper = await DatabaseHelper.instance.database;
     final intCount =
         await dbHelper.rawQuery('SELECT COUNT(*) FROM ${DatabaseHelper.table}');
-    print(
-        '${intCount.first.values} - ${intCount.first.values.toString() == '(0)'}');
+    /*print(
+        '${intCount.first.values} - ${intCount.first.values.toString() == '(0)'}');*/
 
     if (intCount.isEmpty) {
       context.goNamed(RouteConstants.questionnaire);

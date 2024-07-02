@@ -3,6 +3,7 @@ import 'dart:io' show Directory;
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class DatabaseHelper {
   static const _databaseName = "MyFitnessApp.db";
@@ -22,6 +23,9 @@ class DatabaseHelper {
   static Database? _db;
   Future<Database> get database async {
     if (_db != null) return _db!;
+
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
 
     _db = await _initDatabase();
 

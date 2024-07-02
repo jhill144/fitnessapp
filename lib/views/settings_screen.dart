@@ -152,6 +152,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     Database dbHelper = await DatabaseHelper.instance.database;
 
     final id = await dbHelper.delete(DatabaseHelper.table);
+    final workoutid = await dbHelper.delete(DatabaseHelper.workoutTable);
 
     context.goNamed(RouteConstants.login);
   }

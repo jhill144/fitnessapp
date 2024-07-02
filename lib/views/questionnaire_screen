@@ -4,8 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fitnessapp/utilities/database_helper.dart';
 
-final dbHelper = DatabaseHelper();
-
 class UserInfo {
   final int age;
   final double weight; // in pounds
@@ -56,7 +54,6 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
   @override
   void initState() {
     super.initState();
-    dbHelper.init();
   }
 
   void _insert(BuildContext context) async {
@@ -70,7 +67,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
       DatabaseHelper.columnGoal: _goal,
     };
     //await dbHelper.deleteDB();
-    final id = await dbHelper.insert(row);
+    //final id = await dbHelper.insert(row);
 
     calculateCalories();
       

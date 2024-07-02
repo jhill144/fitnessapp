@@ -2,8 +2,7 @@ import 'package:fitnessapp/utilities/route_constants.dart';
 import 'package:fitnessapp/utilities/database_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-final dbHelper = DatabaseHelper();
+import 'package:sqflite/sqflite.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.title});
@@ -17,7 +16,24 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    dbHelper.init();
+  }
+
+  _queryRecords() async {
+    Database dbHelper = await DatabaseHelper.instance.database;
+    final intCount =
+        await dbHelper.rawQuery('SELECT COUNT(*) FROM ${DatabaseHelper.table}');
+    print(
+        '${intCount.first.values} - ${intCount.first.values.toString() == '(0)'}');
+
+    if (intCount.isEmpty) {
+      context.goNamed(RouteConstants.questionnaire);
+    } else {
+      if (intCount.first.values.toString() == '(0)') {
+        context.goNamed(RouteConstants.questionnaire);
+      } else {
+        context.goNamed(RouteConstants.workout);
+      }
+    }
   }
 
   @override
@@ -28,14 +44,8 @@ class _LoginPageState extends State<LoginPage> {
       children: [
         Image.asset('assets/istockphoto-1397734203-612x612.jpg'),
         ElevatedButton(
-            onPressed: () async {
-              final intCount = await dbHelper.queryRowCount();
-              print(intCount);
-              if (intCount == 0) {
-                context.goNamed(RouteConstants.questionnaire);
-              } else {
-                context.goNamed(RouteConstants.workout);
-              }
+            onPressed: () {
+              _queryRecords();
             },
             child: const Text('Open App')),
       ],

@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'package:fitnessapp/providers/theme_provider.dart';
+import 'package:fitnessapp/utilities/database_helper.dart';
+import 'package:sqflite/sqflite.dart';
 
 class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({super.key});
+
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
@@ -23,12 +27,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      goalController.text = prefs.getString('goal') ?? '';
-      ageController.text = prefs.getString('age') ?? '';
-      weightController.text = prefs.getString('weight') ?? '';
-      heightController.text = prefs.getString('height') ?? '';
-      isDarkTheme = prefs.getBool('isDarkTheme') ?? false;
+    Database dbHelper = await DatabaseHelper.instance.database;
+
+    final mapQuery = await dbHelper.rawQuery(
+        'SELECT * FROM ${DatabaseHelper.table} WHERE ${DatabaseHelper.columnId} = 1');
+
+    mapQuery.forEach((dbitem) {
+      setState(() {
+        goalController.text = prefs.getString('goal') ??
+            dbitem[DatabaseHelper.columnGoal].toString();
+        ageController.text = prefs.getString('age') ??
+            dbitem[DatabaseHelper.columnAge].toString();
+        weightController.text = prefs.getString('weight') ??
+            dbitem[DatabaseHelper.columnWeight].toString();
+        heightController.text = prefs.getString('height') ??
+            dbitem[DatabaseHelper.columnHeightFeet].toString();
+        isDarkTheme = prefs.getBool('isDarkTheme') ?? false;
+      });
     });
   }
 
@@ -46,16 +61,38 @@ class _SettingsScreenState extends State<SettingsScreen> {
       themeProvider.toggleTheme();
     }
 
+    _update();
+
     // Show a snackbar to confirm settings are saved
     ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Settings saved')));
+        .showSnackBar(const SnackBar(content: Text('Settings saved')));
+  }
+
+  void _update() async {
+// row to insert
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnName: 'Bob',
+      DatabaseHelper.columnAge: int.parse(ageController.text),
+      DatabaseHelper.columnWeight: double.parse(weightController.text),
+      DatabaseHelper.columnHeightFeet: double.parse(heightController.text),
+      DatabaseHelper.columnHeightInch: double.parse('0'),
+      DatabaseHelper.columnGoal: goalController.text,
+    };
+
+    Database dbHelper = await DatabaseHelper.instance.database;
+
+    final id = await dbHelper.update(DatabaseHelper.table, row,
+        where: '${DatabaseHelper.columnId} = 1');
+
+    /*final deleteRecord = await dbHelper.delete(DatabaseHelper.table,
+        where: "${DatabaseHelper.columnId} = 1");*/
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: const Text('Settings'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -63,25 +100,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             TextField(
               controller: goalController,
-              decoration: InputDecoration(labelText: 'Goal'),
+              decoration: const InputDecoration(labelText: 'Goal'),
             ),
             TextField(
               controller: ageController,
-              decoration: InputDecoration(labelText: 'Age'),
+              decoration: const InputDecoration(labelText: 'Age'),
               keyboardType: TextInputType.number,
             ),
             TextField(
               controller: weightController,
-              decoration: InputDecoration(labelText: 'Weight'),
+              decoration: const InputDecoration(labelText: 'Weight'),
               keyboardType: TextInputType.number,
             ),
             TextField(
               controller: heightController,
-              decoration: InputDecoration(labelText: 'Height'),
+              decoration: const InputDecoration(labelText: 'Height'),
               keyboardType: TextInputType.number,
             ),
             SwitchListTile(
-              title: Text('Dark Theme'),
+              title: const Text('Dark Theme'),
               value: isDarkTheme,
               onChanged: (bool value) {
                 setState(() {
@@ -93,7 +130,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: () {
                 saveSettings();
               },
-              child: Text('Save Settings'),
+              child: const Text('Save Settings'),
             ),
           ],
         ),

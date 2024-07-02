@@ -13,11 +13,14 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  TextEditingController goalController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController weightController = TextEditingController();
-  TextEditingController heightController = TextEditingController();
+  TextEditingController heightFeetController = TextEditingController();
+  TextEditingController heightInchesController = TextEditingController();
+  String _goal = 'Lose Weight';
   bool isDarkTheme = false;
+
+  final List<String> goals = ['Lose Weight', 'Gain Weight', 'Maintain Weight'];
 
   @override
   void initState() {
@@ -32,27 +35,49 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final mapQuery = await dbHelper.rawQuery(
         'SELECT * FROM ${DatabaseHelper.table} WHERE ${DatabaseHelper.columnId} = 1');
 
-    mapQuery.forEach((dbitem) {
+    if (mapQuery.isNotEmpty) {
+      final dbitem = mapQuery.first;
       setState(() {
-        goalController.text = prefs.getString('goal') ??
-            dbitem[DatabaseHelper.columnGoal].toString();
+        _goal = prefs.getString('goal') ??
+            dbitem[DatabaseHelper.columnGoal]?.toString() ??
+            'Lose Weight';
+        if (!goals.contains(_goal)) {
+          _goal = 'Lose Weight';
+        }
         ageController.text = prefs.getString('age') ??
-            dbitem[DatabaseHelper.columnAge].toString();
+            dbitem[DatabaseHelper.columnAge]?.toString() ??
+            '';
         weightController.text = prefs.getString('weight') ??
-            dbitem[DatabaseHelper.columnWeight].toString();
-        heightController.text = prefs.getString('height') ??
-            dbitem[DatabaseHelper.columnHeightFeet].toString();
+            dbitem[DatabaseHelper.columnWeight]?.toString() ??
+            '';
+        heightFeetController.text = prefs.getString('height (in ft)') ??
+            dbitem[DatabaseHelper.columnHeightFeet]?.toString() ??
+            '';
+        heightInchesController.text = prefs.getString('height (in inches)') ??
+            dbitem[DatabaseHelper.columnHeightFeet]?.toString() ??
+            '';
         isDarkTheme = prefs.getBool('isDarkTheme') ?? false;
       });
-    });
+    } else {
+      // If no data is found in the database, set default values
+      setState(() {
+        ageController.text = prefs.getString('age') ?? '';
+        weightController.text = prefs.getString('weight') ?? '';
+        heightFeetController.text = prefs.getString('height (in ft)') ?? '';
+        heightInchesController.text =
+            prefs.getString('height (in inches)') ?? '';
+        isDarkTheme = prefs.getBool('isDarkTheme') ?? false;
+      });
+    }
   }
 
   Future<void> saveSettings() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('goal', goalController.text);
+    await prefs.setString('goal', _goal);
     await prefs.setString('age', ageController.text);
     await prefs.setString('weight', weightController.text);
-    await prefs.setString('height', heightController.text);
+    await prefs.setString('height (in ft)', heightFeetController.text);
+    await prefs.setString('height (in inches)', heightInchesController.text);
     await prefs.setBool('isDarkTheme', isDarkTheme);
 
     // Update the ThemeProvider
@@ -74,66 +99,150 @@ class _SettingsScreenState extends State<SettingsScreen> {
       DatabaseHelper.columnName: 'Bob',
       DatabaseHelper.columnAge: int.parse(ageController.text),
       DatabaseHelper.columnWeight: double.parse(weightController.text),
-      DatabaseHelper.columnHeightFeet: double.parse(heightController.text),
-      DatabaseHelper.columnHeightInch: double.parse('0'),
-      DatabaseHelper.columnGoal: goalController.text,
+      DatabaseHelper.columnHeightFeet: double.parse(heightFeetController.text),
+      DatabaseHelper.columnHeightInch:
+          double.parse(heightInchesController.text),
+      DatabaseHelper.columnGoal: _goal,
     };
 
     Database dbHelper = await DatabaseHelper.instance.database;
 
     final id = await dbHelper.update(DatabaseHelper.table, row,
         where: '${DatabaseHelper.columnId} = 1');
-
-    /*final deleteRecord = await dbHelper.delete(DatabaseHelper.table,
-        where: "${DatabaseHelper.columnId} = 1");*/
   }
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
       ),
-      body: Padding(
+      body: ListView(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: goalController,
-              decoration: const InputDecoration(labelText: 'Goal'),
-            ),
-            TextField(
-              controller: ageController,
-              decoration: const InputDecoration(labelText: 'Age'),
-              keyboardType: TextInputType.number,
-            ),
-            TextField(
-              controller: weightController,
-              decoration: const InputDecoration(labelText: 'Weight'),
-              keyboardType: TextInputType.number,
-            ),
-            TextField(
-              controller: heightController,
-              decoration: const InputDecoration(labelText: 'Height'),
-              keyboardType: TextInputType.number,
-            ),
-            SwitchListTile(
-              title: const Text('Dark Theme'),
-              value: isDarkTheme,
-              onChanged: (bool value) {
-                setState(() {
-                  isDarkTheme = value;
-                });
-              },
-            ),
-            ElevatedButton(
-              onPressed: () {
-                saveSettings();
-              },
-              child: const Text('Save Settings'),
-            ),
-          ],
+        children: [
+          // Profile Section
+          _buildSectionHeader('Profile Settings', context),
+          TextFormField(
+            controller: ageController,
+            decoration: InputDecoration(labelText: 'Age'),
+            keyboardType: TextInputType.number,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your age';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            controller: weightController,
+            decoration: InputDecoration(labelText: 'Weight (lb)'),
+            keyboardType: TextInputType.number,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your weight';
+              }
+              return null;
+            },
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  controller: heightFeetController,
+                  decoration: InputDecoration(labelText: 'Height (ft)'),
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter feet';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: TextFormField(
+                  controller: heightInchesController,
+                  decoration: InputDecoration(labelText: 'Height (in)'),
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter inches';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+            ],
+          ),
+          DropdownButtonFormField<String>(
+            value: goals.contains(_goal) ? _goal : 'Lose Weight',
+            items: goals
+                .map((label) => DropdownMenuItem(
+                      child: Text(label),
+                      value: label,
+                    ))
+                .toList(),
+            onChanged: (value) {
+              setState(() {
+                _goal = value!;
+              });
+            },
+            decoration: InputDecoration(labelText: 'Goal'),
+          ),
+          const SizedBox(height: 20.0),
+
+          // Theme Section
+          _buildSectionHeader('Theme Settings', context),
+          SwitchListTile(
+            title: const Text('Dark Theme'),
+            value: isDarkTheme,
+            onChanged: (bool value) {
+              setState(() {
+                isDarkTheme = value;
+              });
+            },
+          ),
+          const SizedBox(height: 20.0),
+
+          // Save Button
+          ElevatedButton(
+            onPressed: () {
+              saveSettings();
+            },
+            child: const Text('Save Settings'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(String title, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Text(
+        title,
+        style: Theme.of(context)
+            .textTheme
+            .headlineMedium
+            ?.copyWith(fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  Widget _buildProfileTextField(String label, TextEditingController controller,
+      {bool isNumeric = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: label,
+          border: const OutlineInputBorder(),
         ),
+        keyboardType: isNumeric ? TextInputType.number : TextInputType.text,
       ),
     );
   }

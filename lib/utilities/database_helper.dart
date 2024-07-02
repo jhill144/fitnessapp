@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io' show Directory, Platform;
 
 import 'package:path/path.dart';
@@ -44,7 +45,7 @@ class DatabaseHelper {
     String path = join(documentsDirectory.path, _databaseName);
     // print('data infields-${path} ${_databaseVersion}');
     return await openDatabase(path,
-        version: _databaseVersion, onCreate: _onCreate);
+        version: _databaseVersion, onCreate: _onCreate, onUpgrade: _onUpgrade);
   }
 
   Future _onCreate(Database db, int version) async {
@@ -59,7 +60,7 @@ $columnHeightInch INTEGER NOT NULL,
 $columnGoal INTEGER NOT NULL
 );
       CREATE TABLE $workoutTable (
-      $columnId INTEGER PRIMARY KEY,
+      $columnId TEXT PRIMARY KEY,
       $columnWorkoutID INTEGER NOT NULL,
       $columnWorkoutDuration INTEGER NOT NULL,
       $columnWorkoutReps INTEGER NOT NULL,
@@ -67,6 +68,11 @@ $columnGoal INTEGER NOT NULL
       $columnWorkoutWeights INTEGER NOT NULL
       );
       ''');
+  }
+
+  FutureOr _onUpgrade(Database db, int version, int readOnly) async {
+    await db.execute('''
+    ''');
   }
 
 // Helper methods

@@ -1,4 +1,4 @@
-import 'dart:io' show Directory;
+import 'dart:io' show Directory, Platform;
 
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -29,9 +29,10 @@ class DatabaseHelper {
   static Database? _db;
   Future<Database> get database async {
     if (_db != null) return _db!;
-
-    sqfliteFfiInit();
-    databaseFactory = databaseFactoryFfi;
+    if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+      sqfliteFfiInit();
+      databaseFactory = databaseFactoryFfi;
+    }
 
     _db = await _initDatabase();
 
@@ -41,6 +42,7 @@ class DatabaseHelper {
   _initDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, _databaseName);
+    // print('data infields-${path} ${_databaseVersion}');
     return await openDatabase(path,
         version: _databaseVersion, onCreate: _onCreate);
   }

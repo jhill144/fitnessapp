@@ -71,6 +71,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
     Database dbHelper = await DatabaseHelper.instance.database;
     
     final id = await dbHelper.insert(DatabaseHelper.table, row);
+    print(id);
     context.goNamed("/workouts");
 
   }

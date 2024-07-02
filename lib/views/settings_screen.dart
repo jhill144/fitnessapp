@@ -1,9 +1,11 @@
+import 'package:fitnessapp/utilities/route_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'package:fitnessapp/providers/theme_provider.dart';
 import 'package:fitnessapp/utilities/database_helper.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:go_router/go_router.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -29,19 +31,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final prefs = await SharedPreferences.getInstance();
     Database dbHelper = await DatabaseHelper.instance.database;
 
-    final mapQuery = await dbHelper.rawQuery(
-        'SELECT * FROM ${DatabaseHelper.table} WHERE ${DatabaseHelper.columnId} = 1');
+    final mapQuery =
+        await dbHelper.rawQuery('SELECT * FROM ${DatabaseHelper.table}');
+    print(mapQuery);
 
     mapQuery.forEach((dbitem) {
       setState(() {
-        goalController.text = prefs.getString('goal') ??
-            dbitem[DatabaseHelper.columnGoal].toString();
-        ageController.text = prefs.getString('age') ??
-            dbitem[DatabaseHelper.columnAge].toString();
-        weightController.text = prefs.getString('weight') ??
-            dbitem[DatabaseHelper.columnWeight].toString();
-        heightController.text = prefs.getString('height') ??
-            dbitem[DatabaseHelper.columnHeightFeet].toString();
+        goalController.text = (prefs.getString('goal')!.isEmpty
+            ? dbitem[DatabaseHelper.columnGoal].toString()
+            : prefs.getString('goal'))!;
+        ageController.text = prefs.getString('age')!.isEmpty
+            ? dbitem[DatabaseHelper.columnAge].toString()
+            : prefs.getString('age')!;
+        weightController.text = prefs.getString('weight')!.isEmpty
+            ? dbitem[DatabaseHelper.columnWeight].toString()
+            : prefs.getString('weight')!;
+        heightController.text = prefs.getString('height')!.isEmpty
+            ? dbitem[DatabaseHelper.columnHeightFeet].toString()
+            : prefs.getString('height')!;
         isDarkTheme = prefs.getBool('isDarkTheme') ?? false;
       });
     });
@@ -68,14 +75,41 @@ class _SettingsScreenState extends State<SettingsScreen> {
         .showSnackBar(const SnackBar(content: Text('Settings saved')));
   }
 
+  Future<void> deleteSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('goal', '');
+    await prefs.setString('age', '');
+    await prefs.setString('weight', '');
+    await prefs.setString('height', '');
+    await prefs.setBool('isDarkTheme', false);
+
+    // Update the ThemeProvider
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    if (themeProvider.isDarkTheme != isDarkTheme) {
+      themeProvider.toggleTheme();
+    }
+
+    _delete();
+
+    // Show a snackbar to confirm settings are saved
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Account Data Deleted')));
+  }
+
   void _update() async {
 // row to insert
     Map<String, dynamic> row = {
       DatabaseHelper.columnName: 'Bob',
-      DatabaseHelper.columnAge: int.parse(ageController.text),
-      DatabaseHelper.columnWeight: double.parse(weightController.text),
-      DatabaseHelper.columnHeightFeet: double.parse(heightController.text),
-      DatabaseHelper.columnHeightInch: double.parse('0'),
+      DatabaseHelper.columnAge:
+          ageController.text.isEmpty ? 0 : int.parse(ageController.text),
+      DatabaseHelper.columnWeight: weightController.text.isEmpty
+          ? 0
+          : double.parse(weightController.text),
+      DatabaseHelper.columnHeightFeet: heightController.text.isEmpty
+          ? 0
+          : double.parse(heightController.text),
+      DatabaseHelper.columnHeightInch:
+          heightController.text.isEmpty ? 0 : double.parse('0'),
       DatabaseHelper.columnGoal: goalController.text,
     };
 
@@ -86,6 +120,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     /*final deleteRecord = await dbHelper.delete(DatabaseHelper.table,
         where: "${DatabaseHelper.columnId} = 1");*/
+  }
+
+  void _delete() async {
+    Database dbHelper = await DatabaseHelper.instance.database;
+
+    final id = await dbHelper.delete(DatabaseHelper.table);
+
+    context.goNamed(RouteConstants.login);
   }
 
   @override
@@ -131,6 +173,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 saveSettings();
               },
               child: const Text('Save Settings'),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                deleteSettings();
+              },
+              child: const Text('Delete Account'),
             ),
           ],
         ),

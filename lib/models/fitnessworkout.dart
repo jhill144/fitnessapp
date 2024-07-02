@@ -1,5 +1,3 @@
-import 'package:fitnessapp/utilities/route_constants.dart';
-import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter/material.dart';
 import 'package:fitnessapp/utilities/enums.dart';

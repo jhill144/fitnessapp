@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:fitnessapp/providers/theme_provider.dart';
 
 class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({super.key});
+
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
@@ -48,14 +50,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     // Show a snackbar to confirm settings are saved
     ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Settings saved')));
+        .showSnackBar(const SnackBar(content: Text('Settings saved')));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: const Text('Settings'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -63,25 +65,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             TextField(
               controller: goalController,
-              decoration: InputDecoration(labelText: 'Goal'),
+              decoration: const InputDecoration(labelText: 'Goal'),
             ),
             TextField(
               controller: ageController,
-              decoration: InputDecoration(labelText: 'Age'),
+              decoration: const InputDecoration(labelText: 'Age'),
               keyboardType: TextInputType.number,
             ),
             TextField(
               controller: weightController,
-              decoration: InputDecoration(labelText: 'Weight'),
+              decoration: const InputDecoration(labelText: 'Weight'),
               keyboardType: TextInputType.number,
             ),
             TextField(
               controller: heightController,
-              decoration: InputDecoration(labelText: 'Height'),
+              decoration: const InputDecoration(labelText: 'Height'),
               keyboardType: TextInputType.number,
             ),
             SwitchListTile(
-              title: Text('Dark Theme'),
+              title: const Text('Dark Theme'),
               value: isDarkTheme,
               onChanged: (bool value) {
                 setState(() {
@@ -93,7 +95,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: () {
                 saveSettings();
               },
-              child: Text('Save Settings'),
+              child: const Text('Save Settings'),
             ),
           ],
         ),

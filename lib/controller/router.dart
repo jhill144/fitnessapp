@@ -8,7 +8,6 @@ import 'package:fitnessapp/views/authentication/registration.dart';
 import 'package:fitnessapp/views/workouts/workout.dart';
 import 'package:fitnessapp/views/workouts/workoutdetail.dart';
 import 'package:fitnessapp/models/fitnessworkout.dart';
-import 'package:fitnessapp/main.dart';
 
 class AppRouter {
   final GoRouter router = GoRouter(
@@ -71,7 +70,7 @@ class AppRouter {
           name: RouteConstants.settings,
           path: "/settings",
           builder: (context, state) {
-            return SettingsScreen();
+            return const SettingsScreen();
           },
         ),
       ],

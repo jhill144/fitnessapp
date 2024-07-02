@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fitnessapp/models/fitnessworkout.dart';
+import 'package:fitnessapp/utilities/database_helper.dart';
+import 'package:sqflite/sqflite.dart';
 
 class WorkoutDetailPage extends StatefulWidget {
   const WorkoutDetailPage({super.key, required this.fitnessworkout});
@@ -10,6 +12,21 @@ class WorkoutDetailPage extends StatefulWidget {
 }
 
 class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
+  @override
+  void initState() {
+    super.initState();
+    DatabaseHelper.instance.database;
+
+    _getRoutines();
+  }
+
+  _getRoutines() async {
+    Database dbHelper = await DatabaseHelper.instance.database;
+    final routineList =
+        await dbHelper.rawQuery('SELECT * FROM ${DatabaseHelper.workoutTable}');
+    print(routineList.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

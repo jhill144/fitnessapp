@@ -66,6 +66,8 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
       DatabaseHelper.columnHeightInch: double.parse(_heightInchesController.text),
       DatabaseHelper.columnGoal: _goal,
     };
+
+    
     //await dbHelper.deleteDB();
     //final id = await dbHelper.insert(row);
 

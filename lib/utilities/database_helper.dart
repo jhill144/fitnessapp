@@ -17,6 +17,7 @@ class DatabaseHelper {
   static const columnWorkoutSets = 'workout_sets';
   static const columnWorkoutWeights = 'workout_weights';
   static const columnWorkoutDuration = 'workout_duration';
+  static const columnWorkoutCompleted = 'completed';
   static const columnName = 'name';
   static const columnAge = 'age';
   static const columnWeight = 'weight';
@@ -65,7 +66,8 @@ $columnGoal INTEGER NOT NULL
       $columnWorkoutDuration INTEGER NOT NULL,
       $columnWorkoutReps INTEGER NOT NULL,
       $columnWorkoutSets INTEGER NOT NULL,
-      $columnWorkoutWeights INTEGER NOT NULL
+      $columnWorkoutWeights INTEGER NOT NULL,
+      $columnWorkoutCompleted INTEGER NOT NULL
       );
       ''');
   }
